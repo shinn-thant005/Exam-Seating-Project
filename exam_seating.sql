@@ -67,3 +67,35 @@ ADD FOREIGN KEY(roll_no) REFERENCES student(roll_no) ON DELETE CASCADE;
 
 ALTER TABLE seating
 ADD FOREIGN KEY(exam_id) REFERENCES exam(exam_id) ON DELETE CASCADE;
+
+
+-- Recreate seating table ---
+DROP TABLE seating;
+
+CREATE TABLE seating (
+	roll_no VARCHAR(15),
+    exam_id INT,
+    room_id INT,
+    assigned_row INT,
+    assigned_column INT,
+    PRIMARY KEY(roll_no, exam_id),
+    FOREIGN KEY(roll_no) REFERENCES student(roll_no) ON DELETE CASCADE,
+    FOREIGN KEY(exam_id) REFERENCES exam(exam_id) ON DELETE CASCADE,
+    FOREIGN KEY(room_id) REFERENCES room(room_id) ON DELETE CASCADE
+);
+
+ALTER TABLE seating 
+ADD CONSTRAINT unique_seat_per_exam 
+UNIQUE (exam_id, room_id, assigned_row, assigned_column);
+
+CREATE TABLE room_supervision (
+	invigilator_id INT,
+    room_id INT,
+    exam_id INT,
+    PRIMARY KEY(invigilator_id, room_id),
+    FOREIGN KEY (invigilator_id) REFERENCES invigilator(invigilator_id) ON DELETE CASCADE,
+    FOREIGN KEY (room_id) REFERENCES room(room_id) ON DELETE CASCADE,
+    FOREIGN KEY (exam_id) REFERENCES exam(exam_id) ON DELETE CASCADE
+);
+
+
