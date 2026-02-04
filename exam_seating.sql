@@ -35,3 +35,35 @@ CREATE TABLE invigilator(
     invigilator_name VARCHAR(50),
     department VARCHAR(30)
 );
+
+--- add foreign keys in student table ---
+ALTER TABLE student 
+ADD COLUMN major_id VARCHAR(10);
+
+ALTER TABLE student
+ADD FOREIGN KEY(major_id) REFERENCES major(major_id) ON DELETE SET NULL;
+
+--- add assigned_room foreign key in student table ---
+ALTER TABLE student
+ADD COLUMN assigned_room INT;
+
+ALTER TABLE student
+ADD FOREIGN KEY(assigned_room) REFERENCES room(room_id) ON DELETE SET NULL;
+
+-- Create seating table ---
+CREATE TABLE seating(
+	roll_no VARCHAR(15),
+    exam_id INT,
+    assigned_row INT,
+    assigned_column INT
+);
+
+--- set composite keys of seating table ---
+ALTER TABLE seating
+ADD PRIMARY KEY(roll_no, exam_id);
+
+ALTER TABLE seating
+ADD FOREIGN KEY(roll_no) REFERENCES student(roll_no) ON DELETE CASCADE;
+
+ALTER TABLE seating
+ADD FOREIGN KEY(exam_id) REFERENCES exam(exam_id) ON DELETE CASCADE;
