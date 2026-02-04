@@ -98,4 +98,14 @@ CREATE TABLE room_supervision (
     FOREIGN KEY (exam_id) REFERENCES exam(exam_id) ON DELETE CASCADE
 );
 
+--- Create available_invigilator table ---
+--- This tracks the "pool" of teachers available for specific exams ---
+CREATE TABLE available_invigilator (
+    invigilator_id INT,
+    exam_id INT,
+    PRIMARY KEY (invigilator_id, exam_id),
+    FOREIGN KEY (invigilator_id) REFERENCES invigilator(invigilator_id) ON DELETE CASCADE,
+    FOREIGN KEY (exam_id) REFERENCES exam(exam_id) ON DELETE CASCADE
+);
+
 
