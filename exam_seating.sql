@@ -1,3 +1,9 @@
+--- create a new database ---
+CREATE DATABASE exam_seating_arrangement;
+
+--- USE the database created ---
+USE exam_seating_arrangement;
+
 --- Create student table ---
 CREATE TABLE student(
 	roll_no VARCHAR(15) PRIMARY KEY,
